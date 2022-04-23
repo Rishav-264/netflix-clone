@@ -2,13 +2,9 @@ import React, { useEffect, useState } from 'react';
 import Carousel from 'react-multi-carousel';
 import 'react-multi-carousel/lib/styles.css';
 
-import {
-  RowTitle,
-  ExploreNow,
-  Poster,
-  Button,
-  ButtonContainer,
-} from '../styles/row-styles';
+import { RowTitle, ExploreNow, Poster } from '../styles/row-styles';
+import Modal from './Modal';
+
 import instance from '../config/axios';
 
 const imageBaseUrl = 'https://image.tmdb.org/t/p/original/';
@@ -37,9 +33,10 @@ const responsive = {
   },
 };
 
-function Row({ title, fetchUrl }) {
+function Row({ title, fetchUrl, showModal, setShowModal }) {
   const [movies, setMovies] = useState([]);
   const [onHover, setOnHover] = useState(false);
+  const [movie, setMovie] = useState({});
 
   useEffect(() => {
     async function fetchData() {
@@ -56,8 +53,28 @@ function Row({ title, fetchUrl }) {
     fetchData();
   }, [fetchUrl]);
 
+  const setCurrentMovie = id => {
+    console.log(id);
+    instance
+      .get('/movie/' + id + '?api_key=501c756f41f315033560d33f7021957f')
+      .then(res => {
+        console.log('Movie By Id', res);
+        setMovie(res.data);
+      })
+      .catch(error => {
+        console.log(error.response);
+      });
+  };
+
   return (
     <>
+      {movie !== {} && (
+        <Modal
+          showModal={showModal}
+          setShowModal={setShowModal}
+          movie={movie}
+        />
+      )}
       <RowTitle
         onMouseOver={() => {
           setOnHover(true);
@@ -77,6 +94,10 @@ function Row({ title, fetchUrl }) {
                 key={movie.id}
                 src={imageBaseUrl + movie.poster_path}
                 alt="movie poster"
+                onClick={() => {
+                  setShowModal(true);
+                  setCurrentMovie(movie.id);
+                }}
               />
             </>
           );

@@ -10,7 +10,7 @@ import {
 
 const imageBaseUrl = 'https://image.tmdb.org/t/p/original';
 
-function Banner() {
+function Banner({ showModal, setShowModal }) {
   const [movie, setMovie] = useState({});
 
   useEffect(() => {
@@ -29,24 +29,29 @@ function Banner() {
     }
     fetchData();
   }, []);
-  {
-    console.log(movie);
-  }
   return (
-    <BannerPoster
-      imageBaseUrl={imageBaseUrl}
-      backdropPath={movie.backdrop_path}
-      style={{ display: 'flex', flexDirection: 'column' }}
-    >
-      <div style={{ marginTop: 'auto' }}>
-        <MovieTitle>{movie.title}</MovieTitle>
-        <div style={{ flexDirection: 'row' }}>
-          <Button>Play</Button>
-          <Button>Info</Button>
+    <>
+      <BannerPoster
+        imageBaseUrl={imageBaseUrl}
+        backdropPath={movie.backdrop_path}
+        style={{ display: 'flex', flexDirection: 'column' }}
+      >
+        <div style={{ marginTop: 'auto' }}>
+          <MovieTitle>{movie.title}</MovieTitle>
+          <div style={{ flexDirection: 'row' }}>
+            <Button>Play</Button>
+            {/* <Button
+              onClick={() => {
+                setShowModal(true);
+              }}
+            >
+              Info
+            </Button> */}
+          </div>
+          <MovieSummary>{movie.overview}</MovieSummary>
         </div>
-        <MovieSummary>{movie.overview}</MovieSummary>
-      </div>
-    </BannerPoster>
+      </BannerPoster>
+    </>
   );
 }
 

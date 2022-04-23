@@ -10,14 +10,9 @@ export const Container = styled.div`
   padding: 20px;
   background-color: ${props => (props.show ? '#141414' : 'transparent')};
   height: 30px;
+  transition-timing-function: ease-in;
+  transition: all 0.5s;
 `;
-
-// export const Logo = styled.img`
-//   width: 70px;
-//   height: 70px;
-//   float: left;
-//   margin-left: 20px;
-// `;
 
 export const Logo = styled.img`
   position: fixed;
@@ -33,29 +28,26 @@ export const Avatar = styled.img`
   object-fit: contain;
 `;
 
-// export const LeftAligned = styled.div`
-//   display: inline-block;
-//   width: 50%;
-//   text-align: left;
-//   color: white;
-//   > a {
-//     display: inline-block;
-//     padding: 22px 20px;
-//     margin-left: 30px;
-//   }
-// `;
+export const SearchIcon = styled.div`
+  position: fixed;
+  top: 25px;
+  right: 275px;
+  width: 40px;
+  font-size: 24px;
+  object-fit: contain;
+  color: white;
+  cursor: pointer;
+`;
 
-export const LeftAligned = styled.div``;
-
-// export const RightAligned = styled.div`
-//   display: inline-block;
-//   color: white;
-//   width: 50%;
-//   text-align: right;
-//   > a {
-//     display: inline-block;
-//     padding: 20px;
-//   }
-// `;
-
-export const RightAligned = styled.div``;
+export const SearchInput = styled.input`
+  outline: 0;
+  border-width: 0 0 3px;
+  border-color: white;
+  display: inline-block;
+  position: fixed;
+  right: 50px;
+  margin: 5px 10px 0 10px;
+  background-color: transparent;
+  color: white;
+  font-size: 18px;
+`;
